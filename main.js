@@ -7,7 +7,7 @@ const getLatestNews = async () => {
   const response = await fetch(url);
   const data = await response.json();
   news = data.articles;
-  console.log("test", news);
+  console.log("test", data);
 };
 
 getLatestNews();
