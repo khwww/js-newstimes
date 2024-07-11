@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
 }
+
 .head-line svg {
   width: 430px;
 }
@@ -11,7 +12,7 @@
   margin-top: 1em;
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* 상위 클래스 기준 영역을 넘어서 보여주지 않는다 */
   border-top: 1px solid #ebebeb;
   border-bottom: 4px double black;
 }
@@ -23,14 +24,143 @@
 }
 
 .menus button:hover {
-  background-color: beige;
+  background-color: rgb(150, 175, 194);
+  border-radius: 3px;
 }
 
 .news-img-size {
   max-width: 100%;
   max-height: 250px;
+  /* margin: auto; no image available 이미지 파일 중앙 위치
+    display: block; */
 }
 
 .news {
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.search-area {
+  display: flex;
+  margin-top: 10px;
+  height: 30px;
+  align-items: center;
+}
+
+#search-box {
+  display: none;
+}
+
+.search-icon {
+  margin-right: 5px;
+}
+
+.search-button {
+  background-color: rgb(108, 143, 170);
+  border-radius: 0.3em;
+  border: none;
+  color: white;
+  width: 32px;
+  height: 30px;
+  text-align: center;
+}
+
+.search-button:hover {
+  background-color: rgb(92, 132, 160);
+}
+
+.news-a-tag,
+.news-a-tag:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.news:hover {
+  transform: scale(0.95);
+}
+
+/* 페이지네이션 */
+.pagination {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* 사이드 메뉴 */
+.side-menu {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(150, 175, 194);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+.side-menu-list button {
+  margin: 5px;
+  border: none;
+  background: none;
+  width: 120px;
+}
+
+.side-menu .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+  border: none;
+  background: none;
+}
+
+.side-menu-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.side-menu button {
+  color: white;
+}
+
+.side-menu-list button:hover {
+  background-color: rgb(108, 143, 170);
+  border-radius: 3px;
+}
+
+/* 기본 카테고리 없어짐과 동시에 햄버거 버튼 */
+.icon-button.hamburger-icon {
+  display: none;
+  margin-right: 7px;
+}
+
+@media screen and (max-width: 768px) {
+  .menus {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    display: none;
+    position: absolute;
+    top: 50px;
+    background-color: burlywood;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  .menus.show-menu {
+    display: flex;
+  }
+  .menus button {
+    width: 100%;
+    text-align: center;
+  }
+  .fas.fa-bars {
+    justify-content: center;
+    display: block;
+  }
+  .head-line {
+    padding-bottom: 1em;
+    border-bottom: 4px double black;
+  }
 }
