@@ -9,7 +9,6 @@ menus.forEach((menu) =>
   menu.addEventListener("click", (event) => getNewsByCategory(event))
 );
 
-// 페이지네이션 기본 값 설정
 let totalResults = 0;
 let page = 1;
 const pageSize = 10;
@@ -17,7 +16,7 @@ const groupSize = 5;
 
 const getNews = async () => {
   try {
-    url.searchParams.set("page", page); // 페이지네이션을 위한 파라미터 값을 추가한 후 url을 호출(fetch(url)) 해야함.
+    url.searchParams.set("page", page);
     url.searchParams.set("pageSize", pageSize);
 
     const response = await fetch(url);
@@ -45,8 +44,6 @@ const getLatestNews = async () => {
 };
 getLatestNews();
 
-// 버튼에 클릭이벤트 주기
-// 카테고리별 뉴스 가져오기
 const getNewsByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
   url = new URL(`${API_URL}?country=us&category=${category}&apiKey=${API_KEY}`);
@@ -56,7 +53,7 @@ const getNewsByCategory = async (event) => {
 const getNewsByKeyword = async () => {
   const keyword = document.getElementById("search-input").value;
   url = new URL(`${API_URL}?country=us&q=${keyword}&apiKey=${API_KEY}`);
-  page = 1; // 검색 후 페이지 1로 설정
+  page = 1;
   getNews();
 };
 
@@ -109,7 +106,7 @@ const render = () => {
      </div>
     </a>`;
     })
-    .join(""); // 배열에 있는 , 지우기 위해 .join 사용
+    .join("");
 
   document.getElementById("news-board").innerHTML = newsHTML;
 
@@ -147,7 +144,6 @@ const openSearchBox = () => {
 };
 document.querySelector(".search-icon").addEventListener("click", openSearchBox);
 
-// 사이드 메뉴
 const openNav = () => {
   document.getElementById("mySidenav").style.width = "250px";
 };
@@ -158,9 +154,6 @@ const closeNav = () => {
 };
 document.querySelector(".closebtn").addEventListener("click", closeNav);
 
-// 페이지네이션
-// totalResult(전체 결과 수), page(현재 페이지), pageSize(한번에 보여주는 페이지 사이즈), groupSize(한 페이지에 몇개 그룹으로 보여줄 수) => 내가 초기화 해줘야 할 값
-// 위를 통해 totalPages(총 페이지 수), pageGroup(현재 페이지가 속한 그룹), lastPage(현재 페이지의 마지막 페이지), firstPage(현재 페이지의 첫번째 페이지)를 계산할 수 있음
 const paginationRender = () => {
   let paginationHTML = "";
   const totalPages = Math.ceil(totalResults / pageSize);

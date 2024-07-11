@@ -31,8 +31,6 @@
 .news-img-size {
   max-width: 100%;
   max-height: 250px;
-  /* margin: auto; no image available 이미지 파일 중앙 위치
-    display: block; */
 }
 
 .news {
@@ -78,7 +76,6 @@
   transform: scale(0.95);
 }
 
-/* 페이지네이션 */
 .pagination {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -86,7 +83,6 @@
   justify-content: center;
 }
 
-/* 사이드 메뉴 */
 .side-menu {
   height: 100%;
   width: 0;
@@ -94,7 +90,7 @@
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: rgb(150, 175, 194);
+  background-color: rgb(150, 209, 152);
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
@@ -127,7 +123,7 @@
 }
 
 .side-menu-list button:hover {
-  background-color: rgb(108, 143, 170);
+  background-color: rgb(150, 209, 152);
   border-radius: 3px;
 }
 
