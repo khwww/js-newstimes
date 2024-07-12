@@ -4,15 +4,16 @@ const API_URL =
 
 let newsList = [];
 let url = new URL(`${API_URL}?country=us&apiKey=${API_KEY}`);
-const menus = document.querySelectorAll(".menus button, .side-menu-list");
-menus.forEach((menu) =>
-  menu.addEventListener("click", (event) => getNewsByCategory(event))
-);
 
 let totalResults = 0;
 let page = 1;
 const pageSize = 10;
 const groupSize = 5;
+
+const menus = document.querySelectorAll(".menus button, .side-menu-list");
+menus.forEach((menu) =>
+  menu.addEventListener("click", (event) => getNewsByCategory(event))
+);
 
 const getNews = async () => {
   try {
@@ -40,21 +41,22 @@ const getNews = async () => {
 
 const getLatestNews = async () => {
   url = new URL(`${API_URL}?country=us&apiKey=${API_KEY}`);
-  getNews();
+  await getNews();
 };
 getLatestNews();
 
 const getNewsByCategory = async (event) => {
   const category = event.target.textContent.toLowerCase();
   url = new URL(`${API_URL}?country=us&category=${category}&apiKey=${API_KEY}`);
-  getNews();
+  page = 1;
+  await getNews();
 };
 
 const getNewsByKeyword = async () => {
   const keyword = document.getElementById("search-input").value;
   url = new URL(`${API_URL}?country=us&q=${keyword}&apiKey=${API_KEY}`);
   page = 1;
-  getNews();
+  await getNews();
 };
 
 document
@@ -85,7 +87,7 @@ const render = () => {
           : news.source.name;
       const newsPublishedAt = moment(news.publishedAt).startOf("day").fromNow();
       const newsUrl =
-        news.url === "https://removed.com"
+        news.url === "https://www.mk.co.kr"
           ? "https://www.nytimes.com/"
           : news.url;
 
@@ -93,10 +95,7 @@ const render = () => {
     <a href="${newsUrl}" target="_blank" class="news-a-tag">
      <div class="row news">
       <div class="col-lg-4">
-        <img class="news-img-size" src="${
-          news.urlToImage ||
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqEWgS0uxxEYJ0PsOb2OgwyWvC0Gjp8NUdPw&usqp=CAU"
-        }" />
+        <img class="news-img-size" src="${news.urlToImage}" />
       </div>
       <div class="col-lg-8">
        <h2>${newsTitle}</h2>
@@ -112,7 +111,7 @@ const render = () => {
 
   document.querySelectorAll(".news-img-size").forEach((item) => {
     item.addEventListener("error", function () {
-      this.src = "src/image-not-available.png";
+      this.src = "no-image.jpg";
     });
   });
 };
@@ -197,12 +196,11 @@ const paginationRender = () => {
   });
 };
 
-const moveToPage = (event) => {
-  const pageNum = parseInt(event.target.getAttribute("pageNum")); // parseInt 문자열을 정수로 변환하는 역할.
-  // 현재페이지가 계산한 페이지 수 범위 안(1 ~ Math.ceil(totalResults / pageSize)) 일때 랜더 해야함.
+const moveToPage = async (event) => {
+  const pageNum = parseInt(event.target.getAttribute("pageNum"));
   if (pageNum > 0 && pageNum <= Math.ceil(totalResults / pageSize)) {
     page = pageNum;
     paginationRender();
-    getNews();
+    await getNews();
   }
 };
