@@ -163,7 +163,7 @@ const paginationRender = () => {
   }
   let firstPage =
     lastPage - (groupSize - 1) <= 0 ? 1 : lastPage - (groupSize - 1);
-  if (firstPage >= groupSize + 1) {
+  if (page >= 2) {
     paginationHTML = `<li class="page-item ${
       page === 1 ? "disabled" : ""
     }"><a class="page-link" pageNum="${1}" href="#">&lt&lt</a></li>
@@ -181,7 +181,7 @@ const paginationRender = () => {
       i === page ? "active" : ""
     }" ><a class="page-link" pageNum="${i}" href="#">${i}</a></li>`;
   }
-  if (lastPage < totalPages)
+  if (page < totalPages)
     paginationHTML += `<li class="page-item ${
       page === totalPages ? "disabled" : ""
     }"><a class="page-link" pageNum="${page + 1}" href="#">&gt</a></li>
